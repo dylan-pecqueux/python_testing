@@ -34,7 +34,6 @@ def showSummary():
     return render_template('welcome.html',club=club,competitions=competitions)
 
 
-
 @app.route('/book/<competition>/<club>')
 def book(competition, club):
     foundClub = [c for c in clubs if c['name'] == club][0]
@@ -51,12 +50,15 @@ def purchasePlaces():
     competition = [c for c in competitions if c['name'] == request.form['competition']][0]
     club = [c for c in clubs if c['name'] == request.form['club']][0]
     placesRequired = int(request.form['places'])
-    if int(club['points']) - placesRequired >= 0:
-        club['points'] = int(club['points']) - placesRequired
-        competition['numberOfPlaces'] = int(competition['numberOfPlaces']) - placesRequired
-        flash('Great-booking complete!')
+    if placesRequired > 0:
+        if int(club['points']) - placesRequired >= 0:
+            club['points'] = int(club['points']) - placesRequired
+            competition['numberOfPlaces'] = int(competition['numberOfPlaces']) - placesRequired
+            flash('Great-booking complete!')
+        else:
+            flash('Error, you redeem more points than available')
     else:
-        flash('Error, you redeem more points than available')
+        flash("Error, you can't enter negative number of places")
     return render_template('welcome.html', club=club, competitions=competitions)
 
 

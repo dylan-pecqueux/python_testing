@@ -63,7 +63,7 @@ def purchasePlaces():
             club['points'] = int(club['points']) - placesRequired
             competition['numberOfPlaces'] = int(competition['numberOfPlaces']) - placesRequired
             flash('Great-booking complete!')
-            return render_template('welcome.html', club=club, competitions=competitions)
+            return redirect(url_for('showSummary'))
         else:
             flash('Error, you redeem more points than available') 
     else:

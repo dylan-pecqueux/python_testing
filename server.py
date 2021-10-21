@@ -59,13 +59,13 @@ def purchasePlaces():
     club = [c for c in clubs if c['name'] == request.form['club']][0]
     placesRequired = int(request.form['places'])
     if placesRequired > 0 and placesRequired < 13:
-        if int(club['points']) - placesRequired >= 0:
+        if int(club['points']) - placesRequired >= 0 and int(competition['numberOfPlaces']) - placesRequired >= 0:
             club['points'] = int(club['points']) - placesRequired
             competition['numberOfPlaces'] = int(competition['numberOfPlaces']) - placesRequired
             flash('Great-booking complete!')
             return redirect(url_for('showSummary'))
         else:
-            flash('Error, you redeem more points than available') 
+            flash('Error, you redeem more points or places than available') 
     else:
         flash("Error, you can't redeem more than 12 and less than 1")
     return render_template('booking.html',club=club, competition=competition)

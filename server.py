@@ -29,7 +29,7 @@ def index():
     return render_template('index.html', clubs=clubs)
 
 
-@app.route('/showSummary',methods=['POST', 'GET'])
+@app.route('/showSummary', methods=['POST', 'GET'])
 def showSummary():
     if request.method == 'POST':
         try:

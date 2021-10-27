@@ -69,7 +69,7 @@ def purchasePlaces():
             flash('Error, you redeem more points or places than available') 
     else:
         flash("Error, you can't redeem more than 12 and less than 1")
-    return render_template('booking.html',club=club, competition=competition)
+    return render_template('booking.html', club=club, competition=competition)
     
 
 

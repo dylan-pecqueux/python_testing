@@ -32,8 +32,9 @@ def test_purchacesplace_deduct_points_club(client, db):
 
 def test_purchacesplace_deduct_points_competition(client, db):
     competitions = db['competitions']
-    response = client.post('/purchasePlaces', data={"competition": "Spring Festival", "club": "Simply Lift", "places": "2"}, follow_redirects=True)
-    assert response.status_code == 200
+    response = client.post('/purchasePlaces', data={"competition": "Spring Festival", "club": "Simply Lift", "places": "2"})
+    assert response.status_code == 302
+    assert b"/showSummary" in response.data
     assert competitions[0]['numberOfPlaces'] == '23'
 
 def test_purchacesplace_cant_input_negative_points(client, db):

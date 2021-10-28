@@ -34,13 +34,13 @@ def showSummary():
     if request.method == 'POST':
         try:
             found_club = [club for club in clubs if club['email'] == request.form['email']][0]
-            session['club'] = found_club
+            session['club'] = found_club['email']
         except IndexError:
             flash("The email isn't found !")
             return render_template('index.html')
     now = datetime.now()
-    club = session.get('club')
-    return render_template('welcome.html', club=club, competitions=competitions, now=now, date=format_date)
+    get_club = [club for club in clubs if club['email'] == session.get('club')][0]
+    return render_template('welcome.html', club=get_club, competitions=competitions, now=now, date=format_date)
 
 
 @app.route('/book/<competition>/<club>')

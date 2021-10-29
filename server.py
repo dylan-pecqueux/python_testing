@@ -78,4 +78,5 @@ def purchasePlaces():
 
 @app.route('/logout')
 def logout():
+    session.pop('club', None)
     return redirect(url_for('index'))

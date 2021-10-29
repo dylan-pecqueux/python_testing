@@ -27,7 +27,7 @@ def db(mocker):
         },
         {
             "name": "Summer Festival",
-            "date": "2022-03-27 10:00:00",
+            "date": date,
             "numberOfPlaces": "3"
         }
     ])

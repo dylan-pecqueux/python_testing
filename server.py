@@ -74,16 +74,16 @@ def purchasePlaces():
         0
     ]
     club = [c for c in clubs if c["name"] == request.form["club"]][0]
-    placesRequired = int(request.form["places"])
-    if placesRequired > 0 and placesRequired < 13:
+    placesRequired = request.form["places"]
+    if placesRequired and int(placesRequired) > 0 and int(placesRequired) < 13:
         if (
-            int(club["points"]) - placesRequired * 3 >= 0
-            and int(competition["numberOfPlaces"]) - placesRequired >= 0
+            int(club["points"]) - int(placesRequired) * 3 >= 0
+            and int(competition["numberOfPlaces"]) - int(placesRequired) >= 0
         ):
-            club["points"] = f"{int(club['points']) - placesRequired * 3}"
+            club["points"] = f"{int(club['points']) - int(placesRequired) * 3}"
             competition[
                 "numberOfPlaces"
-            ] = f"{int(competition['numberOfPlaces']) - placesRequired}"
+            ] = f"{int(competition['numberOfPlaces']) - int(placesRequired)}"
             flash("Great-booking complete!")
             return redirect(url_for("showSummary"))
         else:

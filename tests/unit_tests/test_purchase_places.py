@@ -71,3 +71,13 @@ def test_purchacesplace_cant_purchase_more_place_than_available(client, db):
     assert response.status_code == 200
     assert b"Booking for Summer Festival || GUDLFT" in response.data
     assert b"Error, you redeem more points or places than available" in response.data
+
+
+def test_no_places(client, db):
+    response = client.post(
+        "/purchasePlaces",
+        data={"competition": "Summer Festival", "club": "Simply Lift", "places": ""},
+    )
+    assert response.status_code == 200
+    assert b"Booking for Summer Festival || GUDLFT" in response.data
+    assert b"Error, you can&#39;t redeem more than 12 and less than 1" in response.data

@@ -5,7 +5,6 @@ def test_index_index(client, db):
 def test_index_display_points_board(client, db):
     response = client.get('/')
     data = response.data.decode()
-    print(response.data.decode())
     assert "Simply Lift<br />" in data
     assert "points: 13</br>" in data
 

@@ -32,8 +32,9 @@ def test_connect_to_logout(client, db):
     assert club[0]["points"] == "1"
     assert competitions[0]["numberOfPlaces"] == "21"
 
-    response = client.get("/logout")
-    assert response.status_code == 302
-    assert b"/" in response.data
+    response = client.get("/logout", follow_redirects=True)
+    assert response.status_code == 200
     with pytest.raises(KeyError):
         session["club"]
+    assert b"Simply Lift<br />" in response.data
+    assert b"points: 1</br>" in response.data

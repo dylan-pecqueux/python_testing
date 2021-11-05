@@ -60,8 +60,12 @@ def book(competition, club):
         and foundCompetition
         and datetime.now() < format_date(foundCompetition["date"])
     ):
+        max_purchase = int(foundClub["points"]) / 3
         return render_template(
-            "booking.html", club=foundClub, competition=foundCompetition
+            "booking.html",
+            club=foundClub,
+            competition=foundCompetition,
+            max=max_purchase,
         )
     else:
         flash("Something went wrong-please try again")
